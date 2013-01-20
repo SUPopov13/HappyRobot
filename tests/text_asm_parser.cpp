@@ -28,16 +28,16 @@ int main()
     char buf[buf_size];
 
     std::istringstream input;
-    std::ofstream ofs("outfile.txt", std::ios::out|std::ios::app);
-	std::ifstream ifs("outfile.txt", std::ios::in);
 
     while(std::cin && !std::cin.eof()) {
-        std::cout << "Enter command" << "\n" << "command format 'command_name [function_number] [parameter_number] [parameter_value]'" << "\n" << "\n" << ">" ;
+        std::cout << "Enter command" << "\n" << "command format 'command_name [func_type] [func_num] [param_num]'" << "\n" << "\n" << ">" ;
         std::cin.getline(buf, buf_size);
         std::string s(buf, buf_size);
 
         input.str(s);
-
+        std::ofstream ofs("outfile.txt", std::ios::out|std::ios::app);
+	std::ifstream ifs("outfile.txt", std::ios::in);
+	
         tmp_t tmp;
 
         try {
@@ -63,10 +63,11 @@ int main()
         catch(constant_mismatch_error) {
             std::cout << "invalid command format" << std::endl;
         }
+        ofs.close();
+	ifs.close();
     }
 
     std::cout << "line is too long\n";
-    ofs.close();
-	ifs.close();
+
     return 0;
 }
